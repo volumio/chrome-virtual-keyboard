@@ -41,16 +41,21 @@ var dialogs =[];
 // Customize default settings in local storage
 var OPEN_SETTINGS = false; // Open KB settings page the first time
 var ALT_LAYOUTS = [
-    {"value":"en","name":"English (QWERTY)"},
-    {"value":"it","name":"Italian (QWERTY)"},
-    {"value":"jp","name":"Japanese (QWERTY)"},
-    {"value":"de","name":"German (QWERTZ)"},
-    {"value":"sl","name":"Slovenian (QWERTZ)"},
-    {"value":"es","name":"Spanish (QWERTY)"},
-    {"value":"ru","name":"Russian (JCUKEN)"},
-    {"value":"fr","name":"French (AZERTY)"},
+    {"value":"cs","name":"Česky"},
+    {"value":"en","name":"English"},
+    {"value":"it","name":"Italian"},
+    {"value":"jp","name":"Japanese"},
+    {"value":"de","name":"German"},
+    {"value":"sl","name":"Slovenian"},
+    {"value":"es","name":"Spanish"},
+    {"value":"ru","name":"Russian"},
+    {"value":"fr","name":"French"},
     {"value":"kr","name":"Korean"},
-    {"value":"sw","name":"Swedish (QWERTY)"}
+    {"value":"sw","name":"Swedish"},
+    {"value":"hu","name":"Magyar"},
+    {"value":"no","name":"Norsk"},
+    {"value":"pl","name":"Polski"},
+    {"value":"ua","name":"Українська"},
 ];
 var CAPS_LOCK = "true";
 var HW_ACCEL = "true";
