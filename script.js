@@ -43,6 +43,7 @@ var OPEN_SETTINGS = false; // Open KB settings page the first time
 var ALT_LAYOUTS = [
     {"value":"en","name":"English (QWERTY)"},
     {"value":"it","name":"Italian (QWERTY)"},
+    {"value":"jp","name":"Japanese (QWERTY)"},
     {"value":"de","name":"German (QWERTZ)"},
     {"value":"sl","name":"Slovenian (QWERTZ)"},
     {"value":"es","name":"Spanish (QWERTY)"},
@@ -1018,8 +1019,8 @@ function init_virtualKeyboardChromeExtension(firstTime) {
                             }
                         }
                         document.getElementById("virtualKeyboardChromeExtensionOverlay" + this.getAttribute("_menu")).style.display = "";
-                        document.getElementById("virtualKeyboardChromeExtensionOverlay" + this.getAttribute("_menu")).style.left = (entObj.clientX - (document.getElementById("virtualKeyboardChromeExtensionOverlaySettings").offsetWidth / 2)) + "px";
-                        document.getElementById("virtualKeyboardChromeExtensionOverlay" + this.getAttribute("_menu")).style.bottom = ((window.innerHeight - entObj.clientY) + 20) + "px";
+                        document.getElementById("virtualKeyboardChromeExtensionOverlay" + this.getAttribute("_menu")).style.left = "20 px";
+                        document.getElementById("virtualKeyboardChromeExtensionOverlay" + this.getAttribute("_menu")).style.bottom = ((window.innerHeight - entObj.clientY) + 60) + "px";
                         document.getElementById("virtualKeyboardChromeExtensionOverlay" + this.getAttribute("_menu")).setAttribute("_state", "open");
                     };
                     m[i][endEvent] = function (ent) {
