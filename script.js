@@ -41,21 +41,21 @@ var dialogs =[];
 // Customize default settings in local storage
 var OPEN_SETTINGS = false; // Open KB settings page the first time
 var ALT_LAYOUTS = [
-    {"value":"cs","name":"Česky"},
+    {"value":"cs","name":"Cesky"},
     {"value":"en","name":"English"},
     {"value":"it","name":"Italian"},
-    {"value":"jp","name":"Japanese"},
+    {"value":"ja","name":"Japanese"},
     {"value":"de","name":"German"},
     {"value":"sl","name":"Slovenian"},
     {"value":"es","name":"Spanish"},
     {"value":"ru","name":"Russian"},
     {"value":"fr","name":"French"},
-    {"value":"kr","name":"Korean"},
+    {"value":"ko","name":"Korean"},
     {"value":"sw","name":"Swedish"},
     {"value":"hu","name":"Magyar"},
     {"value":"no","name":"Norsk"},
     {"value":"pl","name":"Polski"},
-    {"value":"ua","name":"Українська"},
+    {"value":"ua","name":"Ukrainian"}
 ];
 var CAPS_LOCK = "true";
 var HW_ACCEL = "true";
