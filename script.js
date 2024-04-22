@@ -739,12 +739,28 @@ function xk_settings_load_main(response) {
     document.addEventListener(virtualKeyboardChromeExtensionTouchEvents == "true" ? "touchmove" : "mousemove", vk_document_mousemove, false);
 
     virtualKeyboardChromeExtensionKeyboardEnabled = response.keyboardEnabled;
-    virtualKeyboardChromeExtensionKeyboardLayout1Setting = response.keyboardLayout1;
-
+    virtualKeyboardChromeExtensionKeyboardLayout1Setting = getVolumioKeyboardLayout();
     virtualKeyboardChromeExtensionUrlButton = response.urlButton;
     if (virtualKeyboardChromeExtensionUrlButton == undefined) { virtualKeyboardChromeExtensionUrlButton = "false"; }
 
     init_virtualKeyboardChromeExtension(true);
+}
+
+function getVolumioKeyboardLayout() {
+  let volumioLanguage = localStorage.getItem("volumio.language");
+  if (volumioLanguage.length) {
+    if (isLanguageAvailable(volumioLanguage)) {
+      return volumioLanguage;
+    } else {
+      return 'en';
+    }
+  } else {
+    return 'en';
+  }
+}
+
+function isLanguageAvailable(langCode) {
+    return ALT_LAYOUTS.some(layout => layout.value === langCode);
 }
 
 function virtualKeyboardChrome_prevent(ent) {
