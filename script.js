@@ -75,7 +75,7 @@ function set_default() {
 
     // First check if the default settings are there already.
     key = "openedFirstTime";
-
+    loadLayouts();
     if (OPEN_SETTINGS) {
         last_key_to_check = "urlButton";
     } else {
@@ -745,8 +745,6 @@ function xk_settings_load_main(response) {
 
     virtualKeyboardChromeExtensionKeyboardEnabled = response.keyboardEnabled;
     virtualKeyboardChromeExtensionKeyboardLayout1Setting = getVolumioKeyboardLayout();
-    console.log('AAAAAA')
-    loadLayouts();
     virtualKeyboardChromeExtensionUrlButton = response.urlButton;
     if (virtualKeyboardChromeExtensionUrlButton == undefined) { virtualKeyboardChromeExtensionUrlButton = "false"; }
 
@@ -757,7 +755,6 @@ function getVolumioKeyboardLayout() {
   try {
     var volumioLanguage = localStorage.getItem("volumio.language").replace(/"/g, '');
   } catch(e) {
-    console.log(e)
     var volumioLanguage = 'en';
   }
   if (volumioLanguage.length) {
@@ -786,7 +783,6 @@ function loadLayouts() {
       key: 'keyboardLayoutsList',
       value: JSON.stringify(ALT_LAYOUTS)
   }, function (response) {
-    console.log('OLE')
       chrome.extension.sendRequest({ method: "loadKeyboardSettings" }, xk_settings_load_main);
   });
 }
