@@ -745,7 +745,8 @@ function xk_settings_load_main(response) {
 
     virtualKeyboardChromeExtensionKeyboardEnabled = response.keyboardEnabled;
     virtualKeyboardChromeExtensionKeyboardLayout1Setting = getVolumioKeyboardLayout();
-    console.log(virtualKeyboardChromeExtensionKeyboardLayout1Setting)
+    console.log('AAAAAA')
+    loadLayouts();
     virtualKeyboardChromeExtensionUrlButton = response.urlButton;
     if (virtualKeyboardChromeExtensionUrlButton == undefined) { virtualKeyboardChromeExtensionUrlButton = "false"; }
 
@@ -779,6 +780,17 @@ function virtualKeyboardChrome_prevent(ent) {
     ent.stopPropagation();
 }
 
+function loadLayouts() {
+  chrome.extension.sendRequest({
+      method: "setLocalStorage",
+      key: 'keyboardLayoutsList',
+      value: JSON.stringify(ALT_LAYOUTS)
+  }, function (response) {
+    console.log('OLE')
+      chrome.extension.sendRequest({ method: "loadKeyboardSettings" }, xk_settings_load_main);
+  });
+}
+
 function* getAllChildNodes(element, includeShadowDom) {
     if (element.children) {
         for (let node of element.children) {
@@ -799,7 +811,6 @@ function* getAllChildNodes(element, includeShadowDom) {
 }
 
 function init_virtualKeyboardChromeExtension(firstTime) {
-
     if (firstTime) {
         if (top == self) {
             if (virtualKeyboardChromeExtensionTouchEvents == undefined) {
