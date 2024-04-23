@@ -75,12 +75,13 @@ function set_default() {
 
     // First check if the default settings are there already.
     key = "openedFirstTime";
-    loadLayouts();
+
     if (OPEN_SETTINGS) {
         last_key_to_check = "urlButton";
     } else {
         last_key_to_check = "openedFirstTime";
     }
+    loadLayouts();
 
     chrome.extension.sendRequest(
         { method: "getLocalStorage", key: key },
@@ -783,7 +784,7 @@ function loadLayouts() {
       key: 'keyboardLayoutsList',
       value: JSON.stringify(ALT_LAYOUTS)
   }, function (response) {
-      chrome.extension.sendRequest({ method: "loadKeyboardSettings" }, xk_settings_load_main);
+      //chrome.extension.sendRequest({ method: "loadKeyboardSettings" }, xk_settings_load_main);
   });
 }
 
