@@ -26,6 +26,8 @@ var virtualKeyboardChromeExtensionDraggablingX = 0;
 var virtualKeyboardChromeExtensionDraggablingY = 0;
 var virtualKeyboardChromeExtensionRequestRefresh = false;
 var virtualKeyboardChromeExtensionKeyboardLoaded1 = "";
+var virtualKeyboardChromeExtensionJapaneseFormat = false;
+
 
 var hardwareAcceleration = true;
 var autoTrigger = false;
@@ -49,7 +51,8 @@ var ALT_LAYOUTS = [
     {"value":"ru","name":"Russian (JCUKEN)"},
     {"value":"fr","name":"French (AZERTY)"},
     {"value":"kr","name":"Korean"},
-    {"value":"sw","name":"Swedish (QWERTY)"}
+    {"value":"sw","name":"Swedish (QWERTY)"},
+    {"value":"ja","name":"Japanese"} //TODO
 ];
 var CAPS_LOCK = "true";
 var HW_ACCEL = "true";
@@ -247,6 +250,11 @@ function virtualKeyboardChromeExtension_click(key, skip) {
             virtualKeyboardChromeExtensionFormat = !virtualKeyboardChromeExtensionFormat;
             document.getElementById('virtualKeyboardChromeExtensionMainKbd').style.display = virtualKeyboardChromeExtensionFormat ? "none" : "";
             document.getElementById('virtualKeyboardChromeExtensionMainNumbers').style.display = virtualKeyboardChromeExtensionFormat ? "" : "none";
+            break;
+        case '" °':
+            virtualKeyboardChromeExtensionJapaneseFormat = !virtualKeyboardChromeExtensionJapaneseFormat;
+            document.getElementById('virtualKeyboardChromeExtensionMainKbd').style.display = virtualKeyboardChromeExtensionJapaneseFormat ? "none" : "";
+            document.getElementById('virtualKeyboardChromeExtensionJapaneseKeys').style.display = virtualKeyboardChromeExtensionJapaneseFormat ? "" : "none";
             break;
         case 'Close':
             for( let dlg of dialogs ){
