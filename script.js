@@ -265,12 +265,12 @@ function virtualKeyboardChromeExtension_click(key, skip) {
         case '" °':
             virtualKeyboardChromeExtensionJapaneseKeys = !virtualKeyboardChromeExtensionJapaneseKeys;
             if(virtualKeyboardChromeExtensionKatakanaFormat){
-                document.getElementById('virtualKeyboardChromeExtensionKatakanaKeys').style.display = virtualKeyboardChromeExtensionJapaneseKeys ? "" : "none";
                 document.getElementById('virtualKeyboardChromeExtensionMainKatakana').style.display = virtualKeyboardChromeExtensionJapaneseKeys ? "none" : "";
+                document.getElementById('virtualKeyboardChromeExtensionKatakanaKeys').style.display = virtualKeyboardChromeExtensionJapaneseKeys ? "" : "none";
 
             }else {
-                document.getElementById('virtualKeyboardChromeExtensionHiraganaKeys').style.display = virtualKeyboardChromeExtensionJapaneseKeys ? "" : "none";
                 document.getElementById('virtualKeyboardChromeExtensionMainKbd').style.display = virtualKeyboardChromeExtensionJapaneseKeys ? "none" : "";
+                document.getElementById('virtualKeyboardChromeExtensionHiraganaKeys').style.display = virtualKeyboardChromeExtensionJapaneseKeys ? "" : "none";
             }   
             break;
         case 'Close':
@@ -552,20 +552,11 @@ function virtualKeyboardChromeExtension_inputTypesRender() {
         }
     }
 
-    document.getElementById("virtualKeyboardChromeExtensionKatakanaKeys").style.display = "none";
-    document.getElementById("virtualKeyboardChromeExtensionHiraganaKeys").style.display = "none";
-    document.getElementById("virtualKeyboardChromeExtensionMainNumbers").style.display = "none";
-    document.getElementById("virtualKeyboardChromeExtensionNumberBarKbdInput").style.display = "none";
-    if(virtualKeyboardChromeExtensionKatakanaFormat){
-    document.getElementById("virtualKeyboardChromeExtensionMainKatakana").style.display = "";
-    }else{
-        document.getElementById("virtualKeyboardChromeExtensionMainKbd").style.display = "";
-    }
-
+    //document.getElementById("virtualKeyboardChromeExtensionMainNumbers").style.display = "none";
+    //document.getElementById("virtualKeyboardChromeExtensionNumberBarKbdInput").style.display = "none";
 
     virtualKeyboardChromeExtensionFormat = false;
-    virtualKeyboardChromeExtensionHiraganaFormat = false;
-    virtualKeyboardChromeExtensionKatakanaFormat = false;
+
 
 
     virtualKeyboardChromeClassStyleDisplay("kbEmailInput", "none");
