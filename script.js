@@ -231,6 +231,7 @@ function virtualKeyboardChromeExtension_submit_buttons(form, inputType = "input"
 }
 
 function virtualKeyboardChromeExtension_click(key, skip) {
+    var scrollableBar = document.getElementById('japaneseConversionResults');
 
     if (top != self) {
         chrome.extension.sendRequest({ method: "clickFromIframe", key: key, skip: skip, frame: this.frameElement.id });
@@ -391,6 +392,18 @@ function virtualKeyboardChromeExtension_click(key, skip) {
                 virtualKeyboardChromeExtensionClickedElem.dispatchEvent(virtualKeyboardChromeExtension_backspace("keypress"));
                 virtualKeyboardChromeExtensionClickedElem.dispatchEvent(virtualKeyboardChromeExtension_backspace("keyup"));
                 virtualKeyboardChromeExtension_dispatch_event();
+                break;
+            case 'scrollLeft':
+                scrollableBar.scrollBy({
+                    left: -150,
+                    behavior: 'smooth'
+                });
+                break;
+            case 'scrollRight':
+                scrollableBar.scrollBy({
+                    left: 150,
+                    behavior: 'smooth'
+                });
                 break;
             default:
                 if (virtualKeyboardChromeExtensionClickedElem != undefined) {
@@ -1347,7 +1360,6 @@ function vk_ajax_load_main() {
         setInterval(init_virtualKeyboardChromeExtension_false, 500);
     }
 }
-
 function virtualKeyboard_kana_kanji_conversion(key) {
     var newInput = '';
     var previousInput = '';
@@ -1356,25 +1368,52 @@ function virtualKeyboard_kana_kanji_conversion(key) {
     fetch(`http://www.google.com/transliterate?langpair=ja-Hira|ja&text=${inputValue}`)
         .then(response => {
             if (!response.ok) {
-                throw new Error('No response from the server: ' + response.status);
+                throw new Error('No response from the server Kana-Kanji Converter: ' + response.status);
             }
+            console.log('RESPONSE:', response);
+
             return response.json();
         })
         .then(data => {
             var results = data[0][1];
+            displayResults(results);
             console.log('RESULTS:', results);
         })
         .catch(error => {
-            console.error('Error in retrieving data from the request :', error);
+            console.error('Error in retrieving data from the request Kana-Kanji Converter:', error);
         });
 
     //TODO
     console.log("INPUT CHARACTER:", key);
-
     console.log("Valore dell'input:", inputValue);
 
-
-
 }
+function displayResults(results) {
+    var resultsContainer = document.getElementById('japaneseConversionResults');
+    resultsContainer.innerHTML = results.map(result => `<li class="kbdH kbdClick" _key='${result}'>${result}</li>`).join('');
+
+    var e = document.getElementsByClassName("kbdClick");
+
+    for (var i = 0; i < e.length; i++) {
+        if (e[i].getAttribute("_vkEnabled") == undefined) {
+            e[i].setAttribute("_vkEnabled", "true");
+            e[i].onclick = function (ent) {
+                var k = this.getAttribute("_key");
+                updateInputValue(k);
+
+            }
+        }
+    }
+}
+function updateInputValue(value) {
+    if (inputValue) {
+        inputValue = value;
+        console.log(inputValue)
+    }
+}
+
+
+
+
 
 

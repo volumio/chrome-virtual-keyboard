@@ -502,3 +502,73 @@ td.selected {
 	padding: 7px;
 	font-size: 20px;
 }
+#virtualKeyboardKanaKanjiConversionResults {
+	display: flex;
+    align-items: center;
+    overflow: hidden;
+    width: 100%;
+	background-color: #53515168;
+	margin-block-end: 7px;
+	border-radius: 3.5px;
+}
+#virtualKeyboardKanaKanjiConversionResults ul {
+	display: flex;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    width: 100%;
+	margin: 0;
+}
+#virtualKeyboardKanaKanjiConversionResults ul li {
+font-size: 18px;
+}
+#browseResults {
+	display: flex;
+}
+#browseResults ul li {
+	padding: 2px;
+    margin: 0;
+	margin-right: 5px;
+    min-width: 40px;
+    background-color: rgba(128, 128, 128, 0.221);
+    border-radius: 50%;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	cursor: pointer;
+}
+#browseResults ul {
+	padding: 2px;
+    display: flex;
+    align-items: center;
+}
+.scrollable-bar {
+    display: flex;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    width: 100%;
+}
+#japaneseConversionResults{
+	padding: 0;
+}
+#japaneseConversionResults li {
+	padding: 0;
+	min-width: 150px;
+    margin: 5px;
+    padding: 10px;
+	text-align: center;
+    border-right: 2.5px solid #A0A0A0;
+    user-select: none;
+	list-style-type: none;
+	cursor: pointer;
+}
+#japaneseConversionResults li:active {
+	background-color: #DDD !important;
+	color: #333 !important;
+}
+#browseResults ul li:active {
+	background-color: #DDD !important;
+	color: #333 !important;
+	border-radius: 2px;
+}
+   
