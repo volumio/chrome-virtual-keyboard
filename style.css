@@ -330,8 +330,8 @@
 	line-height: 12px !important;
 }
 
-#virtualKeyboardChromeExtension table td.kdbCase span, #virtualKeyboardChromeExtension table td.kbdHB span, #virtualKeyboardChromeExtension td.kbdHBS span, #virtualKeyboardChromeExtension table td.kbdHBE span, #virtualKeyboardChromeExtension table td.kbdH span 
-, #virtualKeyboardChromeExtension table td.kbdS span, #virtualKeyboardChromeExtension table td.kbdD span , #virtualKeyboardChromeExtension table td.kbdShift span {
+#virtualKeyboardChromeExtension table td.kdbCase span:not(.selected), #virtualKeyboardChromeExtension table td.kbdHB span:not(.selected), #virtualKeyboardChromeExtension td.kbdHBS span:not(.selected), #virtualKeyboardChromeExtension table td.kbdH span:not(.selected) 
+, #virtualKeyboardChromeExtension table td.kbdS span:not(.selected), #virtualKeyboardChromeExtension table td.kbdD span:not(.selected) , #virtualKeyboardChromeExtension table td.kbdShift span:not(.selected), #virtualKeyboardChromeExtension table td.kbdKatakana span:not(.selected) {
 	-webkit-box-shadow: inset 0px 1px 0px rgba(255,255,255,0.4), inset 0px -1px 1px rgba(0,0,0,1);
     padding-top:20px !important;
 }
@@ -344,8 +344,13 @@
 #virtualKeyboardChromeExtension td.kbdHBE {
 	width: 20% !important;
 }
-#virtualKeyboardChromeExtension td.kbdHB span, #virtualKeyboardChromeExtension td.kbdHBS span, #virtualKeyboardChromeExtension td.kbdHBE span {
-	background-color: #525152 !important;
+#virtualKeyboardChromeExtension td.jaEnter {
+	width: 12% !important;
+}
+#virtualKeyboardChromeExtension td.kbdKatakana {
+	width: 20px;
+}
+#virtualKeyboardChromeExtension td.kbdHB span, #virtualKeyboardChromeExtension td.kbdHBS span {	background-color: #525152 !important;
 }
 #virtualKeyboardChromeExtension table {
 	width: 100% !important;
@@ -359,7 +364,7 @@
 #virtualKeyboardChromeExtension td.kbdS {
 	width: 60% !important;
 }
-#virtualKeyboardChromeExtension td.kbdD span, #virtualKeyboardChromeExtension td.kbdShift span {
+#virtualKeyboardChromeExtension td.kbdD span, #virtualKeyboardChromeExtension td.kbdShift span, #virtualKeyboardChromeExtension td.kbdKatakana span {
 	background-color: #212021 !important;
 }		
 #virtualKeyboardChromeExtensionMainKbd.Shift td.kbdShift span {
@@ -481,4 +486,87 @@
 	margin: 0;
 	padding: 7px;
 	font-size: 20px;
+}
+#virtualKeyboardChromeExtension.modeS  #virtualKeyboardChromeExtensionHiraganaKeys{
+	zoom: 0.7 !important;
+}
+#virtualKeyboardChromeExtension.modeS  #virtualKeyboardChromeExtensionKatakanaKeys{
+	zoom: 0.7 !important;
+}
+td.selected {
+	width: 12px !important;
+}
+#virtualKeyboardChromeExtensionMainKatakana table td.selected span {
+	background-color: #DDD !important;
+	color: #333 !important;
+	padding-top: 20px !important;
+}	
+#virtualKeyboardKanaKanjiConversionResults {
+	display: flex;
+    align-items: center;
+    overflow: hidden;
+    width: 100%;
+	background-color: #53515168;
+	margin-block-end: 7px;
+	border-radius: 3.5px;
+}
+#virtualKeyboardKanaKanjiConversionResults ul {
+	display: flex;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    width: 100%;
+	margin: 0;
+}
+#virtualKeyboardKanaKanjiConversionResults ul li {
+font-size: 18px;
+}
+#browseResults {
+	display: flex;
+}
+#browseResults ul li {
+	padding: 2px;
+    margin: 0;
+	margin-right: 5px;
+    min-width: 40px;
+    background-color: rgba(128, 128, 128, 0.221);
+    border-radius: 50%;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	cursor: pointer;
+}
+#browseResults ul {
+	padding: 2px;
+    display: flex;
+    align-items: center;
+}
+.scrollable-bar {
+    display: flex;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    width: 100%;
+}
+#japaneseConversionResults{
+	padding: 0;
+}
+#japaneseConversionResults li {
+	padding: 0;
+	min-width: 150px;
+    margin: 5px;
+    padding: 10px;
+	text-align: center;
+    border-right: 2.5px solid #A0A0A0;
+    user-select: none;
+	list-style-type: none;
+	cursor: pointer;
+}
+#japaneseConversionResults li:active {
+	background-color: #DDD !important;
+	color: #333 !important;
+}
+#browseResults ul li:active {
+	background-color: #DDD !important;
+	color: #333 !important;
+	border-radius: 2px;
 }

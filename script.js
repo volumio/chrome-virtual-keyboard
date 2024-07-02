@@ -26,6 +26,11 @@ var virtualKeyboardChromeExtensionDraggablingX = 0;
 var virtualKeyboardChromeExtensionDraggablingY = 0;
 var virtualKeyboardChromeExtensionRequestRefresh = false;
 var virtualKeyboardChromeExtensionKeyboardLoaded1 = "";
+var virtualKeyboardChromeExtensionJapaneseKeys = false;
+var virtualKeyboardChromeExtensionHiraganaFormat = false;
+var virtualKeyboardChromeExtensionKatakanaFormat = false;
+var inputValue = "";
+var kanaKanjiResultsContainer; 
 
 var hardwareAcceleration = true;
 var autoTrigger = false;
@@ -36,7 +41,7 @@ var lastHovered = null;
 var lastHoveredTO = null;
 var iframeElemSent = 0;
 var refreshTime = 1000;
-var dialogs =[];
+var dialogs = [];
 
 // Customize default settings in local storage
 var OPEN_SETTINGS = false; // Open KB settings page the first time
@@ -49,7 +54,8 @@ var ALT_LAYOUTS = [
     {"value":"ru","name":"Russian (JCUKEN)"},
     {"value":"fr","name":"French (AZERTY)"},
     {"value":"kr","name":"Korean"},
-    {"value":"sw","name":"Swedish (QWERTY)"}
+    {"value":"sw","name":"Swedish (QWERTY)"},
+    {"value":"ja","name":"Japanese"}
 ];
 var CAPS_LOCK = "true";
 var HW_ACCEL = "true";
@@ -222,6 +228,8 @@ function virtualKeyboardChromeExtension_submit_buttons(form, inputType = "input"
 }
 
 function virtualKeyboardChromeExtension_click(key, skip) {
+     //TODO 
+     var scrollableBar = document.getElementById('japaneseConversionResults');
     if (top != self) {
         chrome.extension.sendRequest({ method: "clickFromIframe", key: key, skip: skip, frame: this.frameElement.id });
     } else {
@@ -245,9 +253,44 @@ function virtualKeyboardChromeExtension_click(key, skip) {
             break;
         case '&123':
             virtualKeyboardChromeExtensionFormat = !virtualKeyboardChromeExtensionFormat;
-            document.getElementById('virtualKeyboardChromeExtensionMainKbd').style.display = virtualKeyboardChromeExtensionFormat ? "none" : "";
-            document.getElementById('virtualKeyboardChromeExtensionMainNumbers').style.display = virtualKeyboardChromeExtensionFormat ? "" : "none";
-            break;
+                if (virtualKeyboardChromeExtensionKatakanaFormat) {
+                    document.getElementById('virtualKeyboardChromeExtensionMainKatakana').style.display = virtualKeyboardChromeExtensionFormat ? "none" : "";
+                    document.getElementById('virtualKeyboardChromeExtensionMainNumbers').style.display = virtualKeyboardChromeExtensionFormat ? "" : "none";
+                } else {
+                    document.getElementById('virtualKeyboardChromeExtensionMainKbd').style.display = virtualKeyboardChromeExtensionFormat ? "none" : "";
+                    document.getElementById('virtualKeyboardChromeExtensionMainNumbers').style.display = virtualKeyboardChromeExtensionFormat ? "" : "none";
+                }
+                break;
+        case '" °':
+            virtualKeyboardChromeExtensionJapaneseKeys = !virtualKeyboardChromeExtensionJapaneseKeys;
+                if (virtualKeyboardChromeExtensionKatakanaFormat) {
+                    document.getElementById('virtualKeyboardChromeExtensionMainKatakana').style.display = virtualKeyboardChromeExtensionJapaneseKeys ? "none" : "";
+                    document.getElementById('virtualKeyboardChromeExtensionKatakanaKeys').style.display = virtualKeyboardChromeExtensionJapaneseKeys ? "" : "none";
+    
+                } else {
+                    document.getElementById('virtualKeyboardChromeExtensionMainKbd').style.display = virtualKeyboardChromeExtensionJapaneseKeys ? "none" : "";
+                    document.getElementById('virtualKeyboardChromeExtensionHiraganaKeys').style.display = virtualKeyboardChromeExtensionJapaneseKeys ? "" : "none";
+                }
+                break;
+        case 'switchTyping':
+                virtualKeyboardChromeExtensionKatakanaFormat = !virtualKeyboardChromeExtensionKatakanaFormat;
+                document.getElementById('virtualKeyboardChromeExtensionMainKbd').style.display = virtualKeyboardChromeExtensionKatakanaFormat ? "none" : "";
+                document.getElementById('katakanaMain').className = virtualKeyboardChromeExtensionKatakanaFormat ? "selected" : "kbdKatakana kbdClick";
+                document.getElementById('katakana').className = virtualKeyboardChromeExtensionKatakanaFormat ? "selected" : "kbdKatakana kbdClick";
+                document.getElementById('virtualKeyboardChromeExtensionMainKatakana').style.display = virtualKeyboardChromeExtensionKatakanaFormat ? "" : "none";
+                break;
+        case 'scrollLeft':
+            scrollableBar.scrollBy({
+                left: -150,
+                ehavior: 'smooth'
+                });
+                break;
+        case 'scrollRight':
+            scrollableBar.scrollBy({
+                left: 150,
+                behavior: 'smooth'
+                });
+                break;
         case 'Close':
             for( let dlg of dialogs ){
                 if (dlg.oldNoCancelOnOutsideClick)
@@ -519,10 +562,26 @@ function virtualKeyboardChromeExtension_inputTypesRender() {
             virtualKeyboardChromeExtensionClickedElem.type = "text";
         }
     }
-    document.getElementById("virtualKeyboardChromeExtensionMainNumbers").style.display = "none";
-    document.getElementById("virtualKeyboardChromeExtensionNumberBarKbdInput").style.display = "none";
-    document.getElementById("virtualKeyboardChromeExtensionMainKbd").style.display = "";
+    // document.getElementById("virtualKeyboardChromeExtensionMainNumbers").style.display = "none";
+    // document.getElementById("virtualKeyboardChromeExtensionNumberBarKbdInput").style.display = "none";
+    // document.getElementById("virtualKeyboardChromeExtensionMainKbd").style.display = "";
 
+    //TODO
+    if (virtualKeyboardChromeExtensionKeyboardLoaded1 === "ja") {
+        document.getElementById("virtualKeyboardKanaKanjiConversionResults").style.display = "inline-flex";
+    }
+    //TODO
+    virtualKeyboardChromeExtensionClickedElem.addEventListener("input", function (event) {
+        kanaKanjiResultsContainer = document.getElementById('japaneseConversionResults');
+
+        inputValue = event.target.value;
+       
+        virtualKeyboard_kana_kanji_conversion(inputValue);
+        if (!inputValue) {
+            kanaKanjiResultsContainer.innerHTML = '';
+        }
+    });
+    
     virtualKeyboardChromeExtensionFormat = false;
 
     virtualKeyboardChromeClassStyleDisplay("kbEmailInput", "none");
@@ -1296,3 +1355,46 @@ function vk_ajax_load_main() {
         setInterval(init_virtualKeyboardChromeExtension_false, 500);
     }
 }
+function virtualKeyboard_kana_kanji_conversion(key) {
+    var newInput = '';
+    var previousInput = '';
+
+    if (!inputValue) {
+        return;
+    } else {
+        fetch(`http://www.google.com/transliterate?langpair=ja-Hira|ja&text=${inputValue}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('No response from the server: ' + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                var results = data[0][1];
+                displayResults(results);
+            })
+            .catch(error => {
+                console.error('Error in retrieving data from the request :', error);
+            });
+    }
+}
+
+function displayResults(results) {
+    kanaKanjiResultsContainer = document.getElementById('japaneseConversionResults');
+    kanaKanjiResultsContainer.innerHTML = results.map(result => `<li class="kbdH kbdClick" _key='${result}'>${result}</li>`).join('');
+
+    var e = document.getElementsByClassName("kbdClick");
+
+    for (var i = 0; i < e.length; i++) {
+        if (e[i].getAttribute("_vkEnabled") == undefined) {
+            e[i].setAttribute("_vkEnabled", "true");
+            e[i].onclick = function (ent) {
+                var k = this.getAttribute("_key");
+                updateInputValue(k);            }
+        }
+    }
+}
+function updateInputValue(value) {
+      inputValue = value;
+}
+
