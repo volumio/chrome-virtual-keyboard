@@ -577,9 +577,7 @@ function virtualKeyboardChromeExtension_inputTypesRender() {
         inputValue = event.target.value;
        
         virtualKeyboard_kana_kanji_conversion(inputValue);
-        if (!inputValue) {
-            kanaKanjiResultsContainer.innerHTML = '';
-        }
+        virtualKeyboardCleanInput(inputValue);
     });
     
     virtualKeyboardChromeExtensionFormat = false;
@@ -977,6 +975,7 @@ function init_virtualKeyboardChromeExtension(firstTime) {
                     ent.preventDefault();
                 };
             }
+            //TODO
             var e = document.getElementsByClassName("kbdClick");
             for (var i = 0; i < e.length; i++) {
                 if (e[i].getAttribute("_vkEnabled") == undefined) {
@@ -1381,7 +1380,7 @@ function virtualKeyboard_kana_kanji_conversion(key) {
 
 function displayResults(results) {
     kanaKanjiResultsContainer = document.getElementById('japaneseConversionResults');
-    kanaKanjiResultsContainer.innerHTML = results.map(result => `<li class="kbdH kbdClick" _key='${result}'>${result}</li>`).join('');
+    kanaKanjiResultsContainer.innerHTML = results.map(result => `<li class="kbdH kdbCase kbdClick" _key='${result}'>${result}</li>`).join('');
 
     var e = document.getElementsByClassName("kbdClick");
 
@@ -1390,11 +1389,17 @@ function displayResults(results) {
             e[i].setAttribute("_vkEnabled", "true");
             e[i].onclick = function (ent) {
                 var k = this.getAttribute("_key");
-                updateInputValue(k);            }
+                updateInputValue(k);
+            }
         }
     }
 }
 function updateInputValue(value) {
       inputValue = value;
 }
-
+function virtualKeyboardCleanInput(value) {
+    if (!inputValue) {
+        kanaKanjiResultsContainer.innerHTML = '';
+    }
+    console.log(value)
+}
