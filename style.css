@@ -519,6 +519,7 @@ td.selected {
 }
 #virtualKeyboardKanaKanjiConversionResults ul li {
 font-size: 18px;
+min-width: 200px;
 }
 #browseResults {
 	display: flex;
@@ -543,27 +544,27 @@ font-size: 18px;
 }
 .scrollable-bar {
     display: flex;
-    overflow-x: hidden;
+    overflow-x: auto;
     scroll-behavior: smooth;
     width: 100%;
 }
-#japaneseConversionResults{
-	padding: 0;
-}
 #japaneseConversionResults li {
-	padding: 0;
-	min-width: 150px;
-    margin: 5px;
-    padding: 10px;
-	text-align: center;
+    display: inline-flex;
+	justify-content: center;
+	align-items: center;
+    min-width: 150px;
+    text-align: center;
     border-right: 2.5px solid #A0A0A0;
     user-select: none;
-	list-style-type: none;
-	cursor: pointer;
+    cursor: pointer;
 }
 #japaneseConversionResults li:active {
-	background-color: #DDD !important;
-	color: #333 !important;
+    background-color: #DDD !important;
+    color: #333 !important;
+}
+#japaneseConversionResults {
+	padding: 0;
+	display: inline-flex;
 }
 #browseResults ul li:active {
 	background-color: #DDD !important;
