@@ -953,6 +953,13 @@ function* getAllChildNodes(element, includeShadowDom) {
     }
 }
 
+function toggleActiveClass (element, duration) {
+    element.classList.add("active");
+    setTimeout(() => {
+        element.classList.remove("active");
+    }, duration);
+};
+
 function init_virtualKeyboardChromeExtension(firstTime) {
     if (firstTime) {
         if (top == self) {
@@ -1124,6 +1131,11 @@ function init_virtualKeyboardChromeExtension(firstTime) {
                                 if (this.getAttribute("_keyC") != undefined) {
                                     k = this.getAttribute("_keyC");
                                 }
+                            }
+                            toggleActiveClass(this, 200);
+
+                            if (autoTriggerAfter >= 0.5) {
+                                toggleActiveClass(this, 200);
                             }
                             if (virtualKeyboardChromeExtensionKeyboardLoaded1 === "ja") {
                                 virtualKeyboard_kana_kanji_conversion(k);
