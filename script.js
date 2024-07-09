@@ -513,11 +513,11 @@ async function displayResults(results, key) {
         const listItems = resultsList.map(result => {
             if (!inputValueAdded) {
                 inputValueAdded = true;
-                return /*html*/ `<li class="kbdH kdbCase kbdClick" _key='${inputValue}'>${inputValue}</li>
-                                 <li class="kbdH kdbCase kbdClick" _key='${result}'>${result}</li>
+                return /*html*/ `<li class="kbdH kbdClick" _key='${inputValue}'>${inputValue}</li>
+                                 <li class="kbdH kbdClick" _key='${result}'>${result}</li>
                 `;
             }
-            return /*html*/ `<li class="kbdH kdbCase kbdClick" _key='${result}'>${result}</li>`;
+            return /*html*/ `<li class="kbdH kbdClick" _key='${result}'>${result}</li>`;
         }).join('');
         return listItems;
     }).join('');
