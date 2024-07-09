@@ -48,16 +48,21 @@ var dialogs = [];
 // Customize default settings in local storage
 var OPEN_SETTINGS = false; // Open KB settings page the first time
 var ALT_LAYOUTS = [
-    {"value":"en","name":"English (QWERTY)"},
-    {"value":"it","name":"Italian (QWERTY)"},
-    {"value":"de","name":"German (QWERTZ)"},
-    {"value":"sl","name":"Slovenian (QWERTZ)"},
-    {"value":"es","name":"Spanish (QWERTY)"},
-    {"value":"ru","name":"Russian (JCUKEN)"},
-    {"value":"fr","name":"French (AZERTY)"},
-    {"value":"kr","name":"Korean"},
-    {"value":"sw","name":"Swedish (QWERTY)"},
-    {"value":"ja","name":"Japanese"}
+    {"value":"cs","name":"Cesky"},
+    {"value":"en","name":"English"},
+    {"value":"it","name":"Italian"},
+    {"value":"ja","name":"Japanese"},
+    {"value":"de","name":"German"},
+    {"value":"sl","name":"Slovenian"},
+    {"value":"es","name":"Spanish"},
+    {"value":"ru","name":"Russian"},
+    {"value":"fr","name":"French"},
+    {"value":"ko","name":"Korean"},
+    {"value":"sw","name":"Swedish"},
+    {"value":"hu","name":"Magyar"},
+    {"value":"no","name":"Norsk"},
+    {"value":"pl","name":"Polski"},
+    {"value":"ua","name":"Ukrainian"}
 ];
 var CAPS_LOCK = "true";
 var HW_ACCEL = "true";
@@ -83,6 +88,7 @@ function set_default() {
     } else {
         last_key_to_check = "openedFirstTime";
     }
+    loadLayouts();
 
     chrome.extension.sendRequest(
         { method: "getLocalStorage", key: key },
@@ -869,17 +875,47 @@ function xk_settings_load_main(response) {
     document.addEventListener(virtualKeyboardChromeExtensionTouchEvents == "true" ? "touchmove" : "mousemove", vk_document_mousemove, false);
 
     virtualKeyboardChromeExtensionKeyboardEnabled = response.keyboardEnabled;
-    virtualKeyboardChromeExtensionKeyboardLayout1Setting = response.keyboardLayout1;
-
+    virtualKeyboardChromeExtensionKeyboardLayout1Setting = getVolumioKeyboardLayout();
     virtualKeyboardChromeExtensionUrlButton = response.urlButton;
     if (virtualKeyboardChromeExtensionUrlButton == undefined) { virtualKeyboardChromeExtensionUrlButton = "false"; }
 
     init_virtualKeyboardChromeExtension(true);
 }
 
+function getVolumioKeyboardLayout() {
+  try {
+    var volumioLanguage = localStorage.getItem("volumio.language").replace(/"/g, '');
+  } catch(e) {
+    var volumioLanguage = 'en';
+  }
+  if (volumioLanguage.length) {
+    if (isLanguageAvailable(volumioLanguage)) {
+      return volumioLanguage;
+    } else {
+      return 'en';
+    }
+  } else {
+    return 'en';
+  }
+}
+
+function isLanguageAvailable(langCode) {
+    return ALT_LAYOUTS.some(layout => layout.value === langCode);
+}
+
 function virtualKeyboardChrome_prevent(ent) {
     ent.preventDefault();
     ent.stopPropagation();
+}
+
+function loadLayouts() {
+  chrome.extension.sendRequest({
+      method: "setLocalStorage",
+      key: 'keyboardLayoutsList',
+      value: JSON.stringify(ALT_LAYOUTS)
+  }, function (response) {
+      //chrome.extension.sendRequest({ method: "loadKeyboardSettings" }, xk_settings_load_main);
+  });
 }
 
 function* getAllChildNodes(element, includeShadowDom) {
@@ -902,7 +938,6 @@ function* getAllChildNodes(element, includeShadowDom) {
 }
 
 function init_virtualKeyboardChromeExtension(firstTime) {
-
     if (firstTime) {
         if (top == self) {
             if (virtualKeyboardChromeExtensionTouchEvents == undefined) {
@@ -1155,8 +1190,8 @@ function init_virtualKeyboardChromeExtension(firstTime) {
                             }
                         }
                         document.getElementById("virtualKeyboardChromeExtensionOverlay" + this.getAttribute("_menu")).style.display = "";
-                        document.getElementById("virtualKeyboardChromeExtensionOverlay" + this.getAttribute("_menu")).style.left = (entObj.clientX - (document.getElementById("virtualKeyboardChromeExtensionOverlaySettings").offsetWidth / 2)) + "px";
-                        document.getElementById("virtualKeyboardChromeExtensionOverlay" + this.getAttribute("_menu")).style.bottom = ((window.innerHeight - entObj.clientY) + 20) + "px";
+                        document.getElementById("virtualKeyboardChromeExtensionOverlay" + this.getAttribute("_menu")).style.left = "20 px";
+                        document.getElementById("virtualKeyboardChromeExtensionOverlay" + this.getAttribute("_menu")).style.bottom = ((window.innerHeight - entObj.clientY) + 60) + "px";
                         document.getElementById("virtualKeyboardChromeExtensionOverlay" + this.getAttribute("_menu")).setAttribute("_state", "open");
                     };
                     m[i][endEvent] = function (ent) {

@@ -19,7 +19,7 @@
 	-webkit-transform: translate3d(0,450px,0);
 }
 #virtualKeyboardChromeExtension.modeS {
-	width: 750px;
+	width: 100%;
 	left: 50%;
 	right: auto;
 	zoom: 1 !important;
