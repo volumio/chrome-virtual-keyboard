@@ -528,7 +528,18 @@ async function displayResults(results, key) {
         for (var i = 0; i < resultsList.length; i++) {
             if (resultsList[i].getAttribute("_vkEnabled") == undefined) {
                 resultsList[i].setAttribute("_vkEnabled", "true");
-                resultsList[i].onclick = async function (ent) {
+                resultsList[i].onclick = function () {
+                    var k = this.getAttribute("_key");
+                    kanaKanjiResultsContainer.innerHTML = '';
+                    var index = virtualKeyboardChromeExtensionClickedElem.value.indexOf(inputValue);
+                    virtualKeyboardChromeExtensionClickedElem.value = virtualKeyboardChromeExtensionClickedElem.value.slice(0, index) + virtualKeyboardChromeExtensionClickedElem.value.slice(index + inputValue.length) + k;
+                    if (key === " ") {
+                        virtualKeyboardChromeExtensionClickedElem.value = ' ' + k;
+                    }
+                    inputValue = '';
+                }
+                resultsList[i].ontouchstart = function () {
+                    console.log("TOUCH");
                     var k = this.getAttribute("_key");
                     kanaKanjiResultsContainer.innerHTML = '';
                     var index = virtualKeyboardChromeExtensionClickedElem.value.indexOf(inputValue);
