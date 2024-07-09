@@ -140,8 +140,10 @@ function set_default() {
 function virtualKeyboardChromeExtension_dispatch_event(eventType = "input") {
     var keyboardEvent = document.createEvent("Event");
     keyboardEvent.initEvent(eventType, true, false);
-    virtualKeyboardChromeExtensionClickedElem.dispatchEvent(keyboardEvent);
-}
+    if (virtualKeyboardChromeExtensionClickedElem) {
+        virtualKeyboardChromeExtensionClickedElem.dispatchEvent(keyboardEvent);
+    }
+    }
 
 function virtualKeyboardChromeExtension_generate_onchange() {
     if (virtualKeyboardChromeExtensionElemChanged == true) {
@@ -360,7 +362,9 @@ function virtualKeyboardChromeExtension_click(key, skip) {
                             form.dispatchEvent(virtualKeyboardChromeExtension_fireEvent("submit"));
                         }
                     }
-                    virtualKeyboardChromeExtensionClickedElem.dispatchEvent(virtualKeyboardChromeExtension_fireEvent("keydown", 13));
+                    if (virtualKeyboardChromeExtensionClickedElem) {
+                        virtualKeyboardChromeExtensionClickedElem.dispatchEvent(virtualKeyboardChromeExtension_fireEvent("keydown", 13));
+                    }
                     virtualKeyboardChromeExtensionState = false;
                     if (virtualKeyboardChromeExtensionFullScreenState) {
                         if (hardwareAcceleration) {
@@ -719,6 +723,11 @@ function virtualKeyboardChromeExtension_open(posY, posX, force) {
             } else {
                 virtualKeyboardChromeExtension_open_part2(posY);
             }
+        }
+        if (virtualKeyboardChromeExtensionKeyboardLoaded1 === "ja") {
+            document.getElementById("virtualKeyboardKanaKanjiConversionResults").style.display = "inline-flex";
+        } else {
+            document.getElementById("virtualKeyboardKanaKanjiConversionResults").style.display = "none";
         }
     }
 }
