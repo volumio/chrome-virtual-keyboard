@@ -660,10 +660,6 @@ function virtualKeyboardChromeExtension_inputTypesRender() {
             virtualKeyboardChromeExtensionClickedElem.type = "text";
         }
     }
-
-    if (virtualKeyboardChromeExtensionKeyboardLoaded1 === "ja") {
-        document.getElementById("virtualKeyboardKanaKanjiConversionResults").style.display = "inline-flex";
-    }
     virtualKeyboardChromeExtensionFormat = false;
 
     virtualKeyboardChromeClassStyleDisplay("kbEmailInput", "none");
