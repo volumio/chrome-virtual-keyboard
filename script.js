@@ -453,6 +453,7 @@ async function virtualKeyboard_kana_kanji_conversion(key) {
         'ScrollRight': true,
         'ScrollLeft': true,
         'SwitchTyping': true,
+        'Enter': true,
         ' ': true,
         'Tab': true,
         'Url': true,
@@ -652,12 +653,6 @@ function virtualKeyboardChromeExtension_inputTypesRender() {
 
     if (virtualKeyboardChromeExtensionKeyboardLoaded1 === "ja") {
         document.getElementById("virtualKeyboardKanaKanjiConversionResults").style.display = "inline-flex";
-        var keyButton = document.getElementsByClassName("kbdClick");
-        for (var i = 0; i < keyButton.length; i++) {
-            if (keyButton[i].getAttribute("_key") === 'Enter') {
-                keyButton[i].style.display = "none";
-            }
-        }
     }
     virtualKeyboardChromeExtensionFormat = false;
 
