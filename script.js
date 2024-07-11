@@ -1284,7 +1284,10 @@ function init_virtualKeyboardChromeExtension(firstTime) {
                                         this.setAttribute("mo", "true");
                                     };
                                     mi[i][endEvent] = function (ent) {
-                                        virtualKeyboardChromeExtensionClickedMenuBtn = false;
+                                        virtualKeyboardChromeExtensionClickedMenuBtn = true;
+                                        ent.preventDefault();
+                                        virtualKeyboardChromeExtensionClickedMenuBtn = false;                                        
+                                        this.setAttribute("mo", "false");
                                         switch (this.getAttribute("_action")) {
                                         case "setKeyboard":
                                                 virtualKeyboardChromeExtensionClickedMenuBtn = true;
