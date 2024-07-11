@@ -540,7 +540,6 @@ async function displayResults(results, key) {
                     inputValue = '';
                 }
                 resultsList[i].ontouchstart = function () {
-                    console.log("TOUCH");
                     var k = this.getAttribute("_key");
                     kanaKanjiResultsContainer.innerHTML = '';
                     var index = virtualKeyboardChromeExtensionClickedElem.value.indexOf(inputValue);
@@ -1288,7 +1287,9 @@ function init_virtualKeyboardChromeExtension(firstTime) {
                                         virtualKeyboardChromeExtensionClickedMenuBtn = false;
                                         switch (this.getAttribute("_action")) {
                                         case "setKeyboard":
-                                            virtualKeyboardChromeExtensionRequestRefresh = true;
+                                                virtualKeyboardChromeExtensionClickedMenuBtn = true;
+                                                ent.preventDefault();
+                                                virtualKeyboardChromeExtensionClickedMenuBtn = false;
                                             setting_set("keyboardLayout1", this.getAttribute("_layout"));
                                             virtualKeyboardChromeExtensionKeyboardLayout1Setting = this.getAttribute("_layout");
                                             virtualKeyboardChromeClassStyleDisplay("kbEmailInput", "none");
