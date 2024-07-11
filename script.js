@@ -33,6 +33,7 @@ var inputValue = '';
 var cleanCharacter = 0;
 var kanaKanjiResultsContainer = ""; 
 var resultsList;
+var openMenu = false;
 
 var hardwareAcceleration = true;
 var autoTrigger = false;
@@ -1204,46 +1205,52 @@ function init_virtualKeyboardChromeExtension(firstTime) {
             if (top == self) {
                 var m = document.getElementsByClassName("kMenu");
                 var startEvent = virtualKeyboardChromeExtensionTouchEvents == "true" ? "ontouchstart" : "onmousedown";
-                var endEvent = virtualKeyboardChromeExtensionTouchEvents == "true" ? "ontouchend" : "onmouseup";
                 for (var i = 0; i < m.length; i++) {
                     m[i][startEvent] = function (ent) {
-                        var entObj = virtualKeyboardChromeExtensionTouchEvents == "true" ? ent.touches[0] : window.event;
-                        virtualKeyboardChromeExtensionClickedMenuBtn = false;
-                        if (virtualKeyboardChromeExtensionOffsetTimeout) {
-                            clearTimeout(virtualKeyboardChromeExtensionOffsetTimeout);
-                            var m2 = document.getElementsByClassName("virtualKeyboardChromeExtensionOverlay");
-                            for (var i = 0; i < m2.length; i++) {
-                                m2[i].setAttribute("_state", "closed");
-                                m2[i].style.display = "none";
-                            }
-                        }
-                        document.getElementById("virtualKeyboardChromeExtensionOverlay" + this.getAttribute("_menu")).style.display = "";
-                        document.getElementById("virtualKeyboardChromeExtensionOverlay" + this.getAttribute("_menu")).style.left = "20 px";
-                        document.getElementById("virtualKeyboardChromeExtensionOverlay" + this.getAttribute("_menu")).style.bottom = ((window.innerHeight - entObj.clientY) + 60) + "px";
-                        document.getElementById("virtualKeyboardChromeExtensionOverlay" + this.getAttribute("_menu")).setAttribute("_state", "open");
-                    };
-                    m[i][endEvent] = function (ent) {
-                        var ho = "false";
-                        if (this.getAttribute("_hoverOnly") != undefined) {
-                            ho = this.getAttribute("_hoverOnly");
-                        }
-                        if (ho != "true") {
-                            virtualKeyboardChromeExtensionClickedMenuBtn = true;
-                            ent.preventDefault();
-                            virtualKeyboardChromeExtensionClickedMenuBtn = false;
-                        }
-                        if (!virtualKeyboardChromeExtensionClickedMenuBtn) {
-                            var m2 = document.getElementsByClassName("virtualKeyboardChromeExtensionOverlay");
-                            for (var i = 0; i < m2.length; i++) {
-                                m2[i].setAttribute("_state", "closed");
-                            }
-                            var virtualKeyboardChromeExtensionOffsetTimeout = setTimeout(function () {
-                                for (var i = 0; i < m2.length; i++) {
-                                    m2[i].style.display = "none";
+                        openMenu = !openMenu;
+                        setTimeout(() => {
+                            if (openMenu) {
+                                var entObj = virtualKeyboardChromeExtensionTouchEvents == "true" ? ent.touches[0] : window.event;
+                                virtualKeyboardChromeExtensionClickedMenuBtn = false;
+                                if (virtualKeyboardChromeExtensionOffsetTimeout) {
+                                    clearTimeout(virtualKeyboardChromeExtensionOffsetTimeout);
+                                    var m2 = document.getElementsByClassName("virtualKeyboardChromeExtensionOverlay");
+                                    for (var i = 0; i < m2.length; i++) {
+                                        m2[i].setAttribute("_state", "closed");
+                                        m2[i].style.display = "none";
+                                    }
                                 }
-                            }, 500);
-                        }
-                        virtualKeyboardChromeExtensionClickedMenuBtn = false;
+                                document.getElementById("virtualKeyboardChromeExtensionOverlay" + this.getAttribute("_menu")).style.display = "";
+                                document.getElementById("virtualKeyboardChromeExtensionOverlay" + this.getAttribute("_menu")).style.left = "20 px";
+                                document.getElementById("virtualKeyboardChromeExtensionOverlay" + this.getAttribute("_menu")).style.bottom = ((window.innerHeight - entObj.clientY) + 40) + "px";
+                                document.getElementById("virtualKeyboardChromeExtensionOverlay" + this.getAttribute("_menu")).setAttribute("_state", "open");
+                            } else {
+                                var e = this.getAttribute("_key");
+                                virtualKeyboardChromeExtension_click(e, true);
+
+                                var ho = "false";
+                                if (this.getAttribute("_hoverOnly") != undefined) {
+                                    ho = this.getAttribute("_hoverOnly");
+                                }
+                                if (ho != "true") {
+                                    virtualKeyboardChromeExtensionClickedMenuBtn = true;
+                                    ent.preventDefault();
+                                    virtualKeyboardChromeExtensionClickedMenuBtn = false;
+                                }
+                                if (!virtualKeyboardChromeExtensionClickedMenuBtn) {
+                                    var m2 = document.getElementsByClassName("virtualKeyboardChromeExtensionOverlay");
+                                    for (var i = 0; i < m2.length; i++) {
+                                        m2[i].setAttribute("_state", "closed");
+                                    }
+                                    var virtualKeyboardChromeExtensionOffsetTimeout = setTimeout(function () {
+                                        for (var i = 0; i < m2.length; i++) {
+                                            m2[i].style.display = "none";
+                                        }
+                                    }, 500);
+                                }
+                                virtualKeyboardChromeExtensionClickedMenuBtn = false;
+                            }
+                        }, 0);
                     };
                 }
                 if (document.getElementById("settingsButton") !== null) {
@@ -1270,6 +1277,7 @@ function init_virtualKeyboardChromeExtension(firstTime) {
                                     var startEvent = virtualKeyboardChromeExtensionTouchEvents == "true" ? "ontouchstart" : "onmousedown";
                                     var endEvent = virtualKeyboardChromeExtensionTouchEvents == "true" ? "ontouchend" : "onmouseup";
                                     mi[i][startEvent] = function (ent) {
+                                        openMenu = !openMenu;
                                         var mi2 = document.getElementsByClassName("virtualKeyboardChromeExtensionOverlayButton");
                                         for (var i2 = 0; i2 < mi2.length; i2++) {
                                             mi2[i2].setAttribute("mo", "");
