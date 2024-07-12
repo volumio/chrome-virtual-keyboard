@@ -526,12 +526,13 @@ min-width: 200px;
 }
 #browseResults {
 	display: flex;
+	min-width: 8%;
 }
 #browseResults ul li {
 	padding: 2px;
     margin: 0;
-	margin-right: 5px;
-    min-width: 40px;
+	margin-inline-end: 5px;
+    min-width: 40%;
     background-color: rgba(128, 128, 128, 0.221);
     border-radius: 50%;
     min-height: 40px;
@@ -539,17 +540,20 @@ min-width: 200px;
     align-items: center;
     justify-content: center;
 	cursor: pointer;
+	margin-inline-end: 15px;
 }
 #browseResults ul {
 	padding: 2px;
     display: flex;
     align-items: center;
+	min-width: 10vh;
 }
-.scroll-bar {
+.scrollable-bar {
     display: flex;
     overflow-x: auto;
     scroll-behavior: smooth;
     width: 100%;
+	margin-inline-start: 60px;
 }
 #virtualKeyboardKanaKanjiConversionResults {
 	zoom: 0.9;
