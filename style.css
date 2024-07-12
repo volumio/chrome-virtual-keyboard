@@ -487,6 +487,10 @@
 	padding: 7px;
 	font-size: 20px;
 }
+#virtualKeyboardChromeExtension.modeS.ja{
+	zoom: 0.7 !important;
+	max-height: 59.2vh;
+}
 #virtualKeyboardChromeExtension.modeS  #virtualKeyboardChromeExtensionHiraganaKeys{
 	zoom: 0.7 !important;
 }
@@ -542,11 +546,14 @@ min-width: 200px;
     display: flex;
     align-items: center;
 }
-.scrollable-bar {
+.scroll-bar {
     display: flex;
     overflow-x: auto;
     scroll-behavior: smooth;
     width: 100%;
+}
+#virtualKeyboardKanaKanjiConversionResults {
+	zoom: 0.9;
 }
 #japaneseConversionResults li {
     display: inline-flex;
