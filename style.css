@@ -493,6 +493,9 @@
 #virtualKeyboardChromeExtension.modeS.ja table {
 	margin: 10px;
 }
+#virtualKeyboardChromeExtensionHiraganaKeys, #virtualKeyboardChromeExtensionKatakanaKeys {
+	zoom: 0.8 !important;
+}
 td.selected {
 	width: 12px !important;
 }
