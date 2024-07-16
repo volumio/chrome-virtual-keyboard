@@ -733,8 +733,11 @@ function virtualKeyboardChromeExtension_open(posY, posX, force) {
         }
         if (virtualKeyboardChromeExtensionKeyboardLoaded1 === "ja") {
             document.getElementById("virtualKeyboardKanaKanjiConversionResults").style.display = "inline-flex";
+            document.getElementById("virtualKeyboardChromeExtension").classList.add('ja');
         } else {
             document.getElementById("virtualKeyboardKanaKanjiConversionResults").style.display = "none";
+            document.getElementById("virtualKeyboardChromeExtension").classList.remove('ja');
+
         }
     }
 }

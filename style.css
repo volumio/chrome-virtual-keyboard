@@ -264,8 +264,7 @@
 #virtualKeyboardChromeExtensionUrlBar [type=submit] {
 	display: none !important;
 }
-#virtualKeyboardChromeExtension table
-{
+#virtualKeyboardChromeExtension table:not(#virtualKeyboardChromeExtensionHiraganaKeys table):not(#virtualKeyboardChromeExtensionKatakanaKeys table) {
 	margin: 5px 0 !important;
 }
 #virtualKeyboardChromeExtensionMainNumbers table td 
@@ -487,11 +486,15 @@
 	padding: 7px;
 	font-size: 20px;
 }
-#virtualKeyboardChromeExtension.modeS  #virtualKeyboardChromeExtensionHiraganaKeys{
+#virtualKeyboardChromeExtension.modeS.ja:not(#virtualKeyboardChromeExtensionHiraganaKeys):not(#virtualKeyboardChromeExtensionKatakanaKeys) {
 	zoom: 0.7 !important;
+	max-height: 59.2vh;
 }
-#virtualKeyboardChromeExtension.modeS  #virtualKeyboardChromeExtensionKatakanaKeys{
-	zoom: 0.7 !important;
+#virtualKeyboardChromeExtension.modeS.ja table {
+	margin: 10px;
+}
+#virtualKeyboardChromeExtensionHiraganaKeys, #virtualKeyboardChromeExtensionKatakanaKeys {
+	zoom: 0.8 !important;
 }
 td.selected {
 	width: 12px !important;
@@ -523,12 +526,13 @@ min-width: 200px;
 }
 #browseResults {
 	display: flex;
+	min-width: 8%;
 }
 #browseResults ul li {
 	padding: 2px;
     margin: 0;
-	margin-right: 5px;
-    min-width: 40px;
+	margin-inline-end: 5px;
+    min-width: 40%;
     background-color: rgba(128, 128, 128, 0.221);
     border-radius: 50%;
     min-height: 40px;
@@ -536,17 +540,23 @@ min-width: 200px;
     align-items: center;
     justify-content: center;
 	cursor: pointer;
+	margin-inline-end: 15px;
 }
 #browseResults ul {
 	padding: 2px;
     display: flex;
     align-items: center;
+	min-width: 10vh;
 }
 .scrollable-bar {
     display: flex;
     overflow-x: auto;
     scroll-behavior: smooth;
     width: 100%;
+	margin-inline-start: 60px;
+}
+#virtualKeyboardKanaKanjiConversionResults {
+	zoom: 0.9;
 }
 #japaneseConversionResults li {
     display: inline-flex;
