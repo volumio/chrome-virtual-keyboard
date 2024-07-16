@@ -259,7 +259,10 @@
 	background-color: rgba(255,255,255,0.05);
 }
 .virtualKeyboardChromeExtensionOverlay li[mo=true]  {
-	background-color: rgba(255,255,255,0.3);
+	background-color: #DDD;
+}
+.virtualKeyboardChromeExtensionOverlay li[mo=false]  {
+    background-color: rgba(255, 255, 255, 0.05);
 }
 #virtualKeyboardChromeExtensionUrlBar [type=submit] {
 	display: none !important;
