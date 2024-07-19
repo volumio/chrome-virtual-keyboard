@@ -274,8 +274,10 @@
 {
 	padding: 30px 30px !important;
 }
-#virtualKeyboardChromeExtension table td {
+#virtualKeyboardChromeExtension table td.ja {
 	width: 8%;
+}
+#virtualKeyboardChromeExtension table td {
 	margin: 0 !important;
 	padding: 30px 30px !important;
 	position: relative !important;
@@ -583,4 +585,13 @@ min-width: 200px;
 	background-color: #DDD !important;
 	color: #333 !important;
 	border-radius: 2px;
+}
+ #virtualKeyboardChromeExtension table td.deEnter {
+	width: 13.5% !important;
+}
+#virtualKeyboardChromeExtension table td.deBackspace {
+	width: 10% !important;
+}
+#virtualKeyboardChromeExtension table td.deSettings {
+	width: 10% !important;
 }
