@@ -274,11 +274,13 @@
 {
 	padding: 30px 30px !important;
 }
+#virtualKeyboardChromeExtension table td.ja {
+	width: 8%;
+}
 #virtualKeyboardChromeExtension table td {
 	margin: 0 !important;
 	padding: 30px 30px !important;
 	position: relative !important;
-	width: 8%;
 }
 #virtualKeyboardChromeExtensionMainNumbers td span{
 	top: 3px !important;
@@ -583,19 +585,4 @@ min-width: 200px;
 	background-color: #DDD !important;
 	color: #333 !important;
 	border-radius: 2px;
-}
- #virtualKeyboardChromeExtension table td.deEnter {
-	width: 13.5% !important;
-}
-#virtualKeyboardChromeExtension table td.deBackspace {
-	width: 10% !important;
-}
-#virtualKeyboardChromeExtension table td.deSettings {
-	width: 10% !important;
-}
-#virtualKeyboardChromeExtension table td.de {
-	width: 7% !important;
-}
-#virtualKeyboardChromeExtension table td.jaBackspace {
-	width: 12% !important;
 }
