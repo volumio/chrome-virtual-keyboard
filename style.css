@@ -274,8 +274,10 @@
 {
 	padding: 30px 30px !important;
 }
-#virtualKeyboardChromeExtension table td {
+#virtualKeyboardChromeExtension table td.ja {
 	width: 8%;
+}
+#virtualKeyboardChromeExtension table td {
 	margin: 0 !important;
 	padding: 30px 30px !important;
 	position: relative !important;
@@ -340,7 +342,7 @@
 #virtualKeyboardChromeExtension td.kdbCase {
 	padding: 30px 20px !important;
 }
-#virtualKeyboardChromeExtension td.kbdHB {
+#virtualKeyboardChromeExtension td.kbdHB.ja {
 	width: 50% !important;
 }
 #virtualKeyboardChromeExtension td.kbdHBE {
