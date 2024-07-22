@@ -345,6 +345,12 @@
 #virtualKeyboardChromeExtension td.kbdHB {
 	width: 50% !important;
 }
+#virtualKeyboardChromeExtension td.kbdHB.it {
+	width: 10% !important;
+}
+#virtualKeyboardChromeExtension td.kbdHBE.it {
+	width: 10% !important;
+}
 #virtualKeyboardChromeExtension td.kbdHBE {
 	width: 20% !important;
 }
